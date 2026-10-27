@@ -30,7 +30,7 @@ It is a static site. There is no server, no database, no passwords and nothing t
 4. Settings, Pages, Build and deployment: Deploy from a branch, branch `main`, folder `/ (root)`, Save.
 5. In about a minute the site is live at `https://<account>.github.io/kakuma-hub/`.
 
-Every later change is the same: upload the changed file, commit, wait a minute.
+Every later change is the same: upload the changed file, commit, wait a minute. Phones keep the old `app.js` and `styles.css` for up to ten minutes; when you change those two files, bump the `?v=` number on the `<script>` and `<link>` lines in every page so phones fetch the new ones.
 
 If the repository was handed to you already on GitHub: Settings, Transfer ownership, type the hub's account. Everything, including the live site, moves with it.
 

@@ -37,7 +37,7 @@ for pg in pages:
     html = open(os.path.join(here, pg), encoding="utf-8").read()
     for href in re.findall(r'(?:href|src)="([^"#]+)', html):
         if href.startswith(("http", "mailto:", "data:")): continue
-        if not os.path.exists(os.path.join(here, href)): fail(f"{pg} links to {href}, which does not exist")
+        if not os.path.exists(os.path.join(here, href.split("?")[0])): fail(f"{pg} links to {href}, which does not exist")
 print(f"{len(pages)} pages, local links resolve")
 
 # 3. the external links answer (needs internet; skip with --offline)

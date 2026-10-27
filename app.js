@@ -33,10 +33,13 @@
   const ratesReady = (async () => {
     try { const r = await fetch('https://api.coinbase.com/v2/exchange-rates?currency=BTC', { cache: 'no-store' }); const j = await r.json(); const x = j && j.data && j.data.rates; if (x && x.USD && x.KES) RATES = { usd: Number(x.USD), kes: Number(x.KES) }; } catch (e) {}
     if (!RATES) { const j = await load('data/rates.json'); if (j && j.btc_usd) RATES = { usd: j.btc_usd, kes: j.btc_kes }; }
-    $$('[data-sats]').forEach(fillFiat);
+    refreshFiat();
   })();
+  function refreshFiat() { if (RATES) $$('[data-sats]').forEach(fillFiat); }
+  // anything rendered later gets its shilling and dollar line as soon as it appears
+  new MutationObserver(() => refreshFiat()).observe(document.documentElement, { childList: true, subtree: true });
   function fiat(sats) { if (!RATES) return ''; const btc = Number(sats) / 1e8; const kes = Math.round(btc * RATES.kes), usd = btc * RATES.usd; return `≈ KES ${fmt(kes)} · US$${usd < 10 ? usd.toFixed(2) : fmt(Math.round(usd))}`; }
-  function fillFiat(el) { el.textContent = fiat(el.dataset.sats); }
+  function fillFiat(el) { const v = fiat(el.dataset.sats); if (el.textContent !== v) el.textContent = v; }
   const priceLine = (sats, big) => `<p class="price${big ? ' big' : ''}">${fmt(sats)} sats <span class="fiat" data-sats="${Number(sats)}">${fiat(sats)}</span></p>`;
 
   // Contact buttons carry the mark of the platform they open. Icon paths: Simple Icons (CC0) for the apps, drawn here for mail, phone and link.
