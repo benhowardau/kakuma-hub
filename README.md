@@ -11,11 +11,13 @@ It is a static site. There is no server, no database, no passwords and nothing t
 | `index.html` | Home: what the hub is, the three doors, coming up, library, visit |
 | `learn.html` | Learning paths for beginners, freelancers, students, teachers, builders |
 | `course.html` + `course.js` | Bitcoin Basics: six lessons, a quiz each, a certificate. The lesson text lives in `course.js` |
-| `members.html` | Directory: hub-verified members from `data/members.json` plus community profiles people publish themselves |
+| `members.html` | People: hub-verified members from `data/members.json` plus community profiles people publish themselves. Every card opens a full profile |
+| `person.html` | One person: photo, about, skills, links, what they make, contact and pay buttons. Opened from a card |
 | `market.html` | Made in Kakuma: curated products from `data/products.json` plus products members publish themselves |
 | `profile.html` + `nostr.js` | Create a profile, log in, edit, add products, back up the key. Uses Nostr (below) |
 | `add.html` | A form that writes a directory or market entry for you, for people who send details by WhatsApp |
 | `data/*.json` | The hub's own lists: members, products, events, and `hub.json` for moderation |
+| `data/img/` | Photos for the verified lists. Each entry's `photo_credit` names the photographer and licence; keep it when you keep the photo |
 | `styles.css`, `app.js` | Look and behaviour. One stylesheet, one script |
 | `check.py` | Run before publishing. Finds broken data files and dead links |
 | `404.html`, `.nojekyll` | Not-found page; tells GitHub Pages to serve the files as they are |
@@ -51,7 +53,9 @@ The course lessons and quiz questions are in `course.js`. Each lesson has `title
 
 Easiest way to get the entry right: open `add.html` on the site, fill in the form, press the button, copy the result into the file. People can also do this themselves and send you the result on WhatsApp.
 
-Dates are `2026-10-31` style. Prices are whole numbers of sats with no quotes. Skills are a list like `["Teaching", "Design"]`.
+Dates are `2026-10-31` style. Prices are whole numbers of sats with no quotes. Skills are a list like `["Teaching", "Design"]`. `photo` is a path like `data/img/name.jpg` (put the file in `data/img/`, about 500 px square for people, 800 px wide for products) or empty for initials. `example: true` shows a small example tag; remove it for real people.
+
+The placeholder photos are from Wikimedia Commons under CC0, CC BY-SA 4.0 and public domain, credited on each card. Replace them with the hub's own photos, taken with the person's agreement, and delete the credit fields.
 
 Then run `python3 check.py` (any computer with Python; `python3 check.py --offline` without internet). It tells you exactly which entry is wrong. Fix it, run again, upload.
 
@@ -64,6 +68,7 @@ What this means for the hub:
 - Nothing to run. The relays are free public infrastructure used by millions of Nostr users. If one is down, the others answer; if all four fail, the pages still show the verified lists.
 - Nothing to reset. There are no passwords. A member who loses their phone and their `nsec` backup phrase creates a new profile. Teach the backup like the bitcoin words.
 - Every profile also appears in Nostr apps (Primal, Damus, Amethyst) with a zap button, because `profile.html` publishes the standard Nostr profile too. That is free reach to the whole bitcoin world.
+- A member can add a photo link on their profile; it shows on their card and page and in Nostr apps.
 - Moderation is `data/hub.json`. To hide someone, put their npub (shown on their card's Nostr link, `primal.net/p/npub1…`) in `blocked`. To mark a community profile as hub verified, put their npub in `verified`. Upload the file; done.
 
 To change the relays, edit the `RELAYS` list at the top of `nostr.js`. To change the tag, change `TAG`, and tell existing members to republish.

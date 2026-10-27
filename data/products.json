@@ -1,6 +1,54 @@
 [
-  {"name": "Example: Beaded necklace, Dinka style", "maker": "Achan Deng", "origin": "South Sudanese beadwork", "price_sats": 45000, "about": "Hand-strung glass beads in traditional colours. Made to order in two weeks. Ships worldwide from Kakuma by post.", "photo": "", "lightning": "achan@getalby.com", "contact": "https://wa.me/254700000000"},
-  {"name": "Example: Leather sandals", "maker": "Hodan Warsame", "origin": "Somali leatherwork", "price_sats": 80000, "about": "Vegetable-tanned leather, hand-stitched. Send your foot length in centimetres.", "photo": "", "lightning": "hodan@walletofsatoshi.com", "contact": "https://wa.me/254700000003"},
-  {"name": "Example: Painting, 40 × 60 cm", "maker": "Jean-Claude Mugisha", "origin": "Congolese art", "price_sats": 150000, "about": "Acrylic on canvas, daily life in Kakuma. Rolled and posted in a tube.", "photo": "", "lightning": "jc@blink.sv", "contact": "https://wa.me/254700000004"},
-  {"name": "Example: Traditional drum", "maker": "Eric Ndayishimiye", "origin": "Burundian drum", "price_sats": 300000, "about": "Hand-carved, goat-skin head. Shipping quoted by weight to your country.", "photo": "", "lightning": "", "contact": "https://wa.me/254700000005"}
+  {
+    "name": "Beaded necklace",
+    "maker": "Achan Deng",
+    "origin": "South Sudanese beadwork",
+    "price_sats": 45000,
+    "about": "Hand-strung glass beads in traditional colours. Made to order in two weeks and posted anywhere.",
+    "photo": "data/img/beads.jpg",
+    "lightning": "achan@getalby.com",
+    "contact": "https://wa.me/254700000000",
+    "example": true,
+    "photo_credit": "Photo: Francis Akuka, CC0",
+    "photo_credit_url": "https://commons.wikimedia.org/wiki/File:Kenyan_Necklace_Beads.jpg"
+  },
+  {
+    "name": "Leather sandals",
+    "maker": "Hodan Warsame",
+    "origin": "Somali leatherwork",
+    "price_sats": 80000,
+    "about": "Vegetable-tanned leather, hand-stitched. Send your foot length in centimetres.",
+    "photo": "data/img/sandals.jpg",
+    "lightning": "hodan@walletofsatoshi.com",
+    "contact": "https://wa.me/254700000003",
+    "example": true,
+    "photo_credit": "Photo: Ainomugisha Brendah, CC BY-SA 4.0",
+    "photo_credit_url": "https://commons.wikimedia.org/wiki/File:Handcrafted_Leather_Sandals.jpg"
+  },
+  {
+    "name": "Woven basket, agaseke",
+    "maker": "Aline Niyonzima",
+    "origin": "Burundian and Rwandan weaving",
+    "price_sats": 60000,
+    "about": "Sisal and sweetgrass, coiled by hand over a week. The lid lifts off. Posted flat-packed in a box.",
+    "photo": "data/img/basket.jpg",
+    "lightning": "aline@blink.sv",
+    "contact": "https://wa.me/254700000004",
+    "example": true,
+    "photo_credit": "Photo: Honorine Umutoni, CC BY-SA 4.0",
+    "photo_credit_url": "https://commons.wikimedia.org/wiki/File:Agaseke_keza.jpg"
+  },
+  {
+    "name": "Traditional drum",
+    "maker": "Eric Ndayishimiye",
+    "origin": "Burundian drum",
+    "price_sats": 300000,
+    "about": "Hand-carved from a single trunk, goat-skin head. Postage quoted by weight to your country.",
+    "photo": "data/img/drums.jpg",
+    "lightning": "",
+    "contact": "https://wa.me/254700000005",
+    "example": true,
+    "photo_credit": "Photo: Teq, Public domain",
+    "photo_credit_url": "https://commons.wikimedia.org/wiki/File:Gitega_drums.JPG"
+  }
 ]

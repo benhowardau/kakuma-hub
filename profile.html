@@ -1,110 +1,124 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="styles.css"><link rel="icon" href="logo.svg"><title>My profile, Bitcoin Kakuma Hub</title><meta name="description" content="Create your profile at the Bitcoin Kakuma Hub. Your key, your profile, your lightning address, visible to clients everywhere."></head>
-<body><div class="wrap"><div class="top"><a class="brand" href="index.html"><span class="mark"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="Bitcoin"><g transform="translate(0.00630876,-0.00301984)"><path fill="#f7931a" d="m63.033,39.744c-4.274,17.143-21.637,27.576-38.782,23.301-17.138-4.274-27.571-21.638-23.295-38.78,4.272-17.145,21.635-27.579,38.775-23.305,17.144,4.274,27.576,21.64,23.302,38.784z"/><path fill="#FFF" d="m46.103,27.444c0.637-4.258-2.605-6.547-7.038-8.074l1.438-5.768-3.511-0.875-1.4,5.616c-0.923-0.23-1.871-0.447-2.813-0.662l1.41-5.653-3.509-0.875-1.439,5.766c-0.764-0.174-1.514-0.346-2.242-0.527l0.004-0.018-4.842-1.209-0.934,3.75s2.605,0.597,2.55,0.634c1.422,0.355,1.679,1.296,1.636,2.042l-1.638,6.571c0.098,0.025,0.225,0.061,0.365,0.117-0.117-0.029-0.242-0.061-0.371-0.092l-2.296,9.205c-0.174,0.432-0.615,1.08-1.609,0.834,0.035,0.051-2.552-0.637-2.552-0.637l-1.743,4.019,4.569,1.139c0.85,0.213,1.683,0.436,2.503,0.646l-1.453,5.834,3.507,0.875,1.439-5.772c0.958,0.26,1.888,0.5,2.798,0.726l-1.434,5.745,3.511,0.875,1.453-5.823c5.987,1.133,10.489,0.676,12.384-4.739,1.527-4.36-0.076-6.875-3.226-8.515,2.294-0.529,4.022-2.038,4.483-5.155zm-8.022,11.249c-1.085,4.36-8.426,2.003-10.806,1.412l1.928-7.729c2.38,0.594,10.012,1.77,8.878,6.317zm1.086-11.312c-0.99,3.966-7.1,1.951-9.082,1.457l1.748-7.01c1.982,0.494,8.365,1.416,7.334,5.553z"/></g></svg></span>Bitcoin Kakuma Hub</a><nav class="main"><a href="learn.html">Learn</a><a href="course.html">Course</a><a href="members.html">Members</a><a href="market.html">Market</a><a href="profile.html">My profile</a></nav></div>
-<div class="hero"><h1>My profile</h1><p class="lede">Your profile lives on a key that only you hold, the same idea as your bitcoin. No password, no account with us. Clients find you in the <a href="members.html">directory</a> and in every Nostr app in the world.</p></div>
-<div id="app"><p class="small">Loading…</p></div>
-<section><h2>How this works</h2>
-<p>When you press Create, your phone makes a key and keeps it. Everything you publish is signed by that key, so nobody can change your profile but you. The key has a backup phrase that starts with <code>nsec</code>. Write it down on paper like your bitcoin words: if you lose the phone and the paper, you start again with a new profile.</p>
-<p>Your profile is published to public Nostr relays, which are free servers anyone can read. That is why the hub never needs to run a server, and why your profile also appears in apps like Primal, Damus and Amethyst, where bitcoiners can find you and zap you.</p></section>
-<footer><div class="fl"><a href="index.html">Home</a><a href="learn.html">Learn</a><a href="course.html">Course</a><a href="members.html">Members</a><a href="market.html">Market</a><a href="profile.html">My profile</a></div><p style="margin-top:14px">Bitcoin Kakuma Hub, Clinic 7, Kakuma Refugee Camp, Turkana County, Kenya. Part of the Bitcoin Nairobi community, with <a href="https://x.com/BitDevsNBO">BitDevs Nairobi</a>.</p></footer></div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="styles.css"><link rel="icon" href="logo.svg"><title>My profile, Bitcoin Kakuma Hub</title><meta name="description" content="Create your profile at the Bitcoin Kakuma Hub. Yours to keep, paid in bitcoin, visible everywhere."></head>
+<body><div class="wrap"><div class="top"><a class="brand" href="index.html"><span class="mark"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="Bitcoin"><g transform="translate(0.00630876,-0.00301984)"><path fill="#f7931a" d="m63.033,39.744c-4.274,17.143-21.637,27.576-38.782,23.301-17.138-4.274-27.571-21.638-23.295-38.78,4.272-17.145,21.635-27.579,38.775-23.305,17.144,4.274,27.576,21.64,23.302,38.784z"/><path fill="#FFF" d="m46.103,27.444c0.637-4.258-2.605-6.547-7.038-8.074l1.438-5.768-3.511-0.875-1.4,5.616c-0.923-0.23-1.871-0.447-2.813-0.662l1.41-5.653-3.509-0.875-1.439,5.766c-0.764-0.174-1.514-0.346-2.242-0.527l0.004-0.018-4.842-1.209-0.934,3.75s2.605,0.597,2.55,0.634c1.422,0.355,1.679,1.296,1.636,2.042l-1.638,6.571c0.098,0.025,0.225,0.061,0.365,0.117-0.117-0.029-0.242-0.061-0.371-0.092l-2.296,9.205c-0.174,0.432-0.615,1.08-1.609,0.834,0.035,0.051-2.552-0.637-2.552-0.637l-1.743,4.019,4.569,1.139c0.85,0.213,1.683,0.436,2.503,0.646l-1.453,5.834,3.507,0.875,1.439-5.772c0.958,0.26,1.888,0.5,2.798,0.726l-1.434,5.745,3.511,0.875,1.453-5.823c5.987,1.133,10.489,0.676,12.384-4.739,1.527-4.36-0.076-6.875-3.226-8.515,2.294-0.529,4.022-2.038,4.483-5.155zm-8.022,11.249c-1.085,4.36-8.426,2.003-10.806,1.412l1.928-7.729c2.38,0.594,10.012,1.77,8.878,6.317zm1.086-11.312c-0.99,3.966-7.1,1.951-9.082,1.457l1.748-7.01c1.982,0.494,8.365,1.416,7.334,5.553z"/></g></svg></span>Bitcoin Kakuma Hub</a><nav class="main"><a href="learn.html">Learn</a><a href="course.html">Course</a><a href="members.html">People</a><a href="market.html">Market</a><a href="profile.html">My profile</a></nav></div>
+
+<div class="hero"><h1>My profile</h1><p class="lede">Yours to keep. No password, no account with us, and clients anywhere can find you and pay you in bitcoin.</p></div>
+<div id="app"><p class="wait"><span class="spin"></span>One moment…</p></div>
+<section><h2>Why there is no password</h2>
+<p>When you tap Create, your phone makes a key and keeps it, the same way a bitcoin wallet does. Everything you publish is signed with that key, so only you can change your profile, and there is nothing for the hub to hold, lose or be hacked for.</p>
+<p>The key has a backup phrase that starts with <code>nsec</code>. Write it on paper next to your bitcoin words. Lose the phone and the paper, and you simply start a new profile.</p>
+<p>Your profile is stored on public relays, free servers that anyone can read, which is why the hub runs no server of its own. The same profile appears in bitcoin apps like Primal, Damus and Amethyst, where people around the world can find you and send you sats. The open standard behind this is called Nostr.</p></section>
+<footer><div class="fl"><a href="index.html">Home</a><a href="learn.html">Learn</a><a href="course.html">Course</a><a href="members.html">People</a><a href="market.html">Market</a><a href="profile.html">My profile</a></div><p style="margin-top:14px">Bitcoin Kakuma Hub, Clinic 7, Kakuma Refugee Camp, Kenya. With <a href="https://x.com/BitDevsNBO">BitDevs Nairobi</a>.</p></footer></div>
+<script src="app.js"></script>
 <script type="module">
 import * as N from './nostr.js';
 const app = document.getElementById('app');
 const esc = (s) => String(s || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const TAG = new URLSearchParams(location.search).get('tag') || N.TAG;
+const wait = (t) => `<span class="wait"><span class="spin"></span>${t}</span>`;
 let sk = null; try { sk = N.loadKey(); } catch (e) {}
 let blocked = []; try { const h = await (await fetch('data/hub.json', { cache: 'no-store' })).json(); blocked = h.blocked || []; } catch (e) {}
-
-function contact(v) { v = (v || '').trim(); if (!v) return ''; if (v.indexOf('@') > 0 && v.indexOf('http') !== 0) return 'mailto:' + v; if (/^\+?\d[\d\s]{6,}$/.test(v)) return 'https://wa.me/' + v.replace(/\D/g, ''); return v; }
-function contactField(url) { url = url || ''; if (url.startsWith('https://wa.me/')) return url.slice(14); if (url.startsWith('mailto:')) return url.slice(7); return url; }
+const contact = (v) => { v = (v || '').trim(); if (!v) return ''; if (v.indexOf('@') > 0 && v.indexOf('http') !== 0) return 'mailto:' + v; if (/^\+?\d[\d\s]{6,}$/.test(v)) return 'https://wa.me/' + v.replace(/\D/g, ''); return v; };
+const contactField = (url) => { url = url || ''; if (url.startsWith('https://wa.me/')) return url.slice(14); if (url.startsWith('mailto:')) return url.slice(7); return url; };
 
 function landing() {
   app.innerHTML = `
     <div class="lesson">
-      <h3>New here?</h3>
-      <p>Press the button. Your phone makes your key and you fill in your profile.</p>
+      <h3>New here</h3>
+      <p>One tap makes your key. Then your name, what you do, and how to pay you.</p>
       <p><button class="btn" id="create">Create my profile</button></p>
     </div>
     <div class="lesson">
-      <h3>Already have a key?</h3>
-      <p>Paste your <code>nsec</code> backup phrase to log in on this phone.</p>
-      <form id="login"><input class="search" id="nsec" placeholder="nsec1…" autocomplete="off"><button class="btn" type="submit">Log in</button><p id="loginerr" class="bad"></p></form>
+      <h3>Coming back on a new phone</h3>
+      <p>Paste your backup phrase. It starts with nsec.</p>
+      <form id="login" class="row"><input class="search" id="nsec" placeholder="nsec1…" autocomplete="off" style="margin:0;flex:1;min-width:200px"><button class="btn ghost" type="submit">Log in</button></form>
+      <p id="loginerr" class="bad"></p>
     </div>`;
-  document.getElementById('create').addEventListener('click', () => { sk = N.createKey(); editor(null, true); });
-  document.getElementById('login').addEventListener('submit', (e) => { e.preventDefault(); try { sk = N.importKey(document.getElementById('nsec').value); editor(null, false); } catch (err) { document.getElementById('loginerr').textContent = 'That does not look like an nsec key. It starts with nsec1 and has 63 characters.'; } });
+  document.getElementById('create').addEventListener('click', () => { sk = N.createKey(); editor(true); });
+  document.getElementById('login').addEventListener('submit', (e) => { e.preventDefault(); try { sk = N.importKey(document.getElementById('nsec').value); editor(false); } catch (err) { document.getElementById('loginerr').textContent = 'That is not a backup phrase. It starts with nsec1 and is 63 characters long.'; } });
 }
 
-async function editor(existing, fresh) {
+async function editor(fresh) {
   const npub = N.npubOf(sk);
-  if (blocked.includes(npub)) { app.innerHTML = '<div class="lesson"><h3>This key is blocked by the hub</h3><p>Talk to the hub team at a Saturday class.</p></div>'; return; }
-  app.innerHTML = '<p class="small">Looking for your profile…</p>';
+  if (blocked.includes(npub)) { app.innerHTML = '<div class="lesson"><h3>This key is paused by the hub</h3><p>Talk to the hub team at a Saturday class.</p></div>'; return; }
   let mine = null, products = [];
-  if (!existing) {
+  if (!fresh) {
+    app.innerHTML = '<div class="lesson">' + wait('Finding your profile…') + '</div>';
     const pk = N.pubkeyOf(sk);
     const [m, p] = await Promise.all([N.fetchListings('member', { tag: TAG, authors: [pk], maxWait: 4000 }), N.fetchListings('product', { tag: TAG, authors: [pk], maxWait: 4000 })]);
     mine = m[0] ? m[0].data : null; products = p;
-  } else { mine = existing; }
-  const d = mine || { name: '', role: '', skills: [], about: '', work: [], lightning: '', contact: '', location: '' };
+  }
+  const d = mine || { name: '', role: '', skills: [], about: '', work: [], lightning: '', contact: '', location: '', photo: '' };
+  const f = (n, label, extra = '', v = '') => `<label class="small">${label}<input class="search" name="${n}" ${extra} value="${esc(v)}"></label>`;
   app.innerHTML = `
-    ${fresh ? '<div class="notice"><b>Your key is made.</b> Fill in your profile, then back up your key below.</div>' : ''}
+    ${fresh ? '<div class="notice"><b>Your key is made and saved on this phone.</b> Fill this in, then back up the key below.</div>' : ''}
     <div class="lesson">
-      <h3>${mine ? 'Edit your profile' : 'Your profile'}</h3>
+      <h3>${mine ? 'Your profile' : 'About you'}</h3>
       <form id="pf">
-        <label class="small">Your name<input class="search" name="name" required maxlength="60" value="${esc(d.name)}"></label>
-        <label class="small">What you do, in a few words (for example: Web developer)<input class="search" name="role" required maxlength="60" value="${esc(d.role)}"></label>
-        <label class="small">Skills, separated by commas (for example: Web development, Design)<input class="search" name="skills" required maxlength="200" value="${esc((d.skills || []).join(', '))}"></label>
+        ${f('name', 'Name', 'required maxlength="60"', d.name)}
+        ${f('role', 'What you do, in a few words', 'required maxlength="60" placeholder="Web developer"', d.role)}
+        ${f('skills', 'Skills, separated by commas', 'required maxlength="200" placeholder="Web development, Design"', (d.skills || []).join(', '))}
         <label class="small">Two sentences about your work<textarea class="search" name="about" rows="3" required maxlength="400">${esc(d.about)}</textarea></label>
-        <label class="small">Where you live (for example: Kakuma 1, Kalobeyei)<input class="search" name="location" maxlength="60" value="${esc(d.location)}"></label>
-        <label class="small">Link to your work, optional<input class="search" name="work1" placeholder="https://" maxlength="200" value="${esc(d.work && d.work[0] ? d.work[0].url : '')}"></label>
-        <label class="small">Second link, optional<input class="search" name="work2" placeholder="https://" maxlength="200" value="${esc(d.work && d.work[1] ? d.work[1].url : '')}"></label>
-        <label class="small">Your lightning address, so clients can pay you (for example: name@walletofsatoshi.com)<input class="search" name="lightning" maxlength="100" value="${esc(d.lightning)}"></label>
-        <label class="small">WhatsApp number with country code, or an email<input class="search" name="contact" maxlength="100" value="${esc(contactField(d.contact))}"></label>
-        <p><button class="btn" type="submit" id="save">${mine ? 'Save changes' : 'Publish my profile'}</button> <span id="msg"></span></p>
+        ${f('location', 'Where you live', 'maxlength="60" placeholder="Kakuma 1"', d.location)}
+        ${f('photo', 'Photo link, a picture of you clients will see', 'placeholder="https://" maxlength="300"', d.photo)}
+        <details><summary>Links to your work<span class="sub">optional</span></summary>
+          ${f('work1', 'First link', 'placeholder="https://" maxlength="200"', d.work && d.work[0] ? d.work[0].url : '')}
+          ${f('work2', 'Second link', 'placeholder="https://" maxlength="200"', d.work && d.work[1] ? d.work[1].url : '')}
+        </details>
+        <h3 style="margin-top:22px">How clients reach and pay you</h3>
+        ${f('lightning', 'Lightning address, so clients can pay you in bitcoin', 'maxlength="100" placeholder="name@walletofsatoshi.com"', d.lightning)}
+        ${f('contact', 'WhatsApp number with country code, or an email', 'maxlength="100" placeholder="254700000000"', contactField(d.contact))}
+        <p class="row"><button class="btn" type="submit" id="save">${mine ? 'Save' : 'Publish'}</button><span id="msg"></span></p>
       </form>
     </div>
     <div class="lesson">
-      <h3>Things I make, for the market</h3>
-      <div id="plist">${products.map((p) => `<p><b>${esc(p.data.name)}</b>, ${Number(p.data.price_sats).toLocaleString('en-US')} sats <button type="button" class="chip" data-remove="${esc(p.d)}">remove</button></p>`).join('') || '<p class="small">Nothing yet.</p>'}</div>
-      <form id="prod">
-        <label class="small">Name of the product (for example: Beaded necklace)<input class="search" name="pname" required maxlength="80"></label>
-        <label class="small">Tradition or origin (for example: South Sudanese beadwork)<input class="search" name="origin" required maxlength="80"></label>
-        <label class="small">Price in sats<input class="search" name="price" type="number" min="1" step="1" required></label>
-        <label class="small">Two sentences: what it is, how long it takes, how it ships<textarea class="search" name="pabout" rows="3" required maxlength="400"></textarea></label>
-        <label class="small">Photo link, optional (a public image URL)<input class="search" name="photo" placeholder="https://" maxlength="300"></label>
-        <p><button class="btn ghost" type="submit">Add to the market</button> <span id="pmsg"></span></p>
-      </form>
+      <details ${products.length ? 'open' : ''}><summary>Things you make, for the market<span class="sub">${products.length ? products.length + ' listed' : 'optional'}</span></summary>
+        <div id="plist">${products.map((p) => `<p class="row"><b>${esc(p.data.name)}</b> ${Number(p.data.price_sats).toLocaleString('en-US')} sats <button type="button" class="chip" data-remove="${esc(p.d)}">remove</button></p>`).join('')}</div>
+        <form id="prod">
+          ${f('pname', 'What it is', 'required maxlength="80" placeholder="Beaded necklace"')}
+          ${f('origin', 'Tradition or origin', 'required maxlength="80" placeholder="South Sudanese beadwork"')}
+          ${f('price', 'Price in sats', 'type="number" min="1" step="1" required')}
+          <label class="small">Two sentences: what it is, how long it takes, how it ships<textarea class="search" name="pabout" rows="3" required maxlength="400"></textarea></label>
+          ${f('photo', 'Photo link', 'placeholder="https://" maxlength="300"')}
+          <p class="row"><button class="btn ghost" type="submit">Add to the market</button><span id="pmsg"></span></p>
+        </form>
+      </details>
     </div>
     <div class="lesson">
-      <h3>Your key</h3>
-      <p class="small">Public id (safe to share): <code>${npub}</code></p>
-      <p>Back up your key now. Write the phrase on paper and keep it with your bitcoin words. Never send it to anyone and never type it into a website that is not this one.</p>
-      <p><button class="btn ghost" type="button" id="reveal">Show my backup phrase</button></p>
-      <p id="nsecbox" hidden><code id="nsecv"></code> <button type="button" class="chip" id="copynsec">copy</button></p>
-      <p class="small">See yourself in the wider world: <a href="https://primal.net/p/${npub}" target="_blank" rel="noopener">your profile on Primal</a>.</p>
-      <p><button type="button" class="chip" id="logout">Log out on this phone</button> <button type="button" class="chip" id="remove">Remove my profile from the directory</button></p>
+      <details ${fresh ? 'open' : ''}><summary>Your key<span class="sub">back it up</span></summary>
+        <p>Write the backup phrase on paper and keep it with your bitcoin words. Never send it to anyone. It is the only way back in on a new phone.</p>
+        <p class="row"><button class="btn ghost" type="button" id="reveal">Show backup phrase</button></p>
+        <p id="nsecbox" hidden><code id="nsecv"></code> <button type="button" class="chip" id="copynsec">copy</button></p>
+        <p class="small">Public id, safe to share: <code>${npub}</code></p>
+        <p class="small">See yourself in the wider world: <a href="https://primal.net/p/${npub}" target="_blank" rel="noopener">your profile on Primal</a>.</p>
+      </details>
+      <details><summary>Leave<span class="sub">this phone or the directory</span></summary>
+        <p class="row"><button type="button" class="chip" id="logout">Log out on this phone</button> <button type="button" class="chip" id="remove">Remove my profile from the directory</button></p>
+        <p class="small">Logging out keeps your profile online; you need the backup phrase to come back. Removing takes it off the directory; you can publish it again later.</p>
+      </details>
     </div>`;
   const pf = document.getElementById('pf');
   pf.addEventListener('submit', async (e) => {
-    e.preventDefault(); const f = new FormData(pf); const msg = document.getElementById('msg'); const btn = document.getElementById('save');
-    const work = []; [f.get('work1'), f.get('work2')].forEach((u) => { if (u && u.trim()) work.push({ label: /github/i.test(u) ? 'GitHub' : /linkedin/i.test(u) ? 'LinkedIn' : 'Website', url: u.trim() }); });
-    const data = { name: f.get('name').trim(), role: f.get('role').trim(), skills: f.get('skills').split(',').map((s) => s.trim()).filter(Boolean), about: f.get('about').trim(), work, lightning: (f.get('lightning') || '').trim(), contact: contact(f.get('contact')), location: (f.get('location') || '').trim() };
-    btn.disabled = true; msg.textContent = 'Publishing…';
-    try { const r = await N.publishMember(sk, data, TAG); msg.innerHTML = `<span class="ok">Published to ${r.relays} relays. You are in the <a href="members.html">directory</a>.</span>`; }
+    e.preventDefault(); const fd = new FormData(pf); const msg = document.getElementById('msg'); const btn = document.getElementById('save');
+    const work = []; [fd.get('work1'), fd.get('work2')].forEach((u) => { if (u && u.trim()) work.push({ label: /github/i.test(u) ? 'GitHub' : /linkedin/i.test(u) ? 'LinkedIn' : 'Website', url: u.trim() }); });
+    const data = { name: fd.get('name').trim(), role: fd.get('role').trim(), skills: fd.get('skills').split(',').map((s) => s.trim()).filter(Boolean), about: fd.get('about').trim(), work, lightning: (fd.get('lightning') || '').trim(), contact: contact(fd.get('contact')), location: (fd.get('location') || '').trim(), photo: (fd.get('photo') || '').trim() };
+    btn.disabled = true; msg.innerHTML = wait('Publishing…');
+    try { const r = await N.publishMember(sk, data, TAG); msg.innerHTML = `<span class="tick">Published to ${r.relays} relays.</span> <a href="members.html">See yourself</a>`; btn.textContent = 'Save'; }
     catch (err) { msg.innerHTML = '<span class="bad">' + esc(err.message) + '</span>'; }
     btn.disabled = false;
   });
   const prod = document.getElementById('prod');
   prod.addEventListener('submit', async (e) => {
-    e.preventDefault(); const f = new FormData(prod); const pm = document.getElementById('pmsg');
-    const data = { name: f.get('pname').trim(), maker: (pf.name.value || d.name).trim(), origin: f.get('origin').trim(), price_sats: Number(f.get('price')), about: f.get('pabout').trim(), photo: (f.get('photo') || '').trim(), lightning: (pf.lightning.value || '').trim(), contact: contact(pf.contact.value) };
-    pm.textContent = 'Publishing…';
-    try { const r = await N.publishProduct(sk, data, TAG); pm.innerHTML = `<span class="ok">On the <a href="market.html">market</a> (${r.relays} relays).</span>`; prod.reset(); }
+    e.preventDefault(); const fd = new FormData(prod); const pm = document.getElementById('pmsg');
+    const data = { name: fd.get('pname').trim(), maker: (pf.name.value || d.name).trim(), origin: fd.get('origin').trim(), price_sats: Number(fd.get('price')), about: fd.get('pabout').trim(), photo: (fd.get('photo') || '').trim(), lightning: (pf.lightning.value || '').trim(), contact: contact(pf.contact.value) };
+    pm.innerHTML = wait('Publishing…');
+    try { const r = await N.publishProduct(sk, data, TAG); pm.innerHTML = `<span class="tick">On the market.</span> <a href="market.html">See it</a>`; prod.reset(); }
     catch (err) { pm.innerHTML = '<span class="bad">' + esc(err.message) + '</span>'; }
   });
   document.getElementById('plist').addEventListener('click', async (e) => { const b = e.target.closest('[data-remove]'); if (!b) return; b.textContent = 'removing…'; try { await N.removeProduct(sk, b.dataset.remove, TAG); b.parentElement.remove(); } catch (err) { b.textContent = 'try again'; } });
   document.getElementById('reveal').addEventListener('click', () => { document.getElementById('nsecv').textContent = N.nsecOf(sk); document.getElementById('nsecbox').hidden = false; });
   document.getElementById('copynsec').addEventListener('click', (e) => { navigator.clipboard && navigator.clipboard.writeText(N.nsecOf(sk)); e.target.textContent = 'copied'; });
-  document.getElementById('logout').addEventListener('click', () => { if (confirm('Log out on this phone? You will need your nsec backup phrase to log in again.')) { N.forgetKey(); sk = null; landing(); } });
+  document.getElementById('logout').addEventListener('click', () => { if (confirm('Log out on this phone? You need your backup phrase to log in again.')) { N.forgetKey(); sk = null; landing(); } });
   document.getElementById('remove').addEventListener('click', async (e) => { if (!confirm('Remove your profile from the directory? You can publish it again later.')) return; e.target.textContent = 'removing…'; try { await N.removeMember(sk, TAG); e.target.textContent = 'removed'; } catch (err) { e.target.textContent = 'try again'; } });
 }
-if (sk) editor(null, false); else landing();
+if (sk) editor(false); else landing();
 </script></body></html>

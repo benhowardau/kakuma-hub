@@ -9,7 +9,7 @@ def fail(msg):
 
 # 1. data files are valid JSON with the fields the pages expect
 need = {
-    "members.json": ["name", "role", "skills", "about", "work", "lightning", "contact", "location"],
+    "members.json": ["name", "role", "skills", "about", "work", "lightning", "contact", "location", "photo"],
     "products.json": ["name", "maker", "origin", "price_sats", "about", "photo", "lightning", "contact"],
     "events.json": ["date", "time", "title", "where", "note"],
 }

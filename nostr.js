@@ -35,7 +35,7 @@ export async function publishMember(sk, data, tag = TAG) {
   const now = Math.floor(Date.now() / 1000);
   const listing = await publish(sk, { kind: KIND, created_at: now, tags: [['d', D_MEMBER], ['t', tag]], content: JSON.stringify(data) });
   // also the ordinary Nostr profile, so the member shows up in every Nostr app with a zap button
-  const meta = { name: data.name, display_name: data.name, about: [data.role, data.about].filter(Boolean).join('. '), lud16: data.lightning || undefined, website: (data.work && data.work[0] && data.work[0].url) || undefined };
+  const meta = { name: data.name, display_name: data.name, about: [data.role, data.about].filter(Boolean).join('. '), lud16: data.lightning || undefined, picture: data.photo || undefined, website: (data.work && data.work[0] && data.work[0].url) || undefined };
   try { await publish(sk, { kind: 0, created_at: now, tags: [], content: JSON.stringify(meta) }); } catch (e) { /* the listing is what the site needs */ }
   return listing;
 }
