@@ -27,6 +27,18 @@
   let tidyTimer; new MutationObserver(() => { clearTimeout(tidyTimer); tidyTimer = setTimeout(() => tidy(document), 30); }).observe(document.body, { childList: true, subtree: true });
 
 
+
+  // Shilling and dollar beside every sats price. Live rate from Coinbase's public rates when it answers, the hub's fallback file when it does not.
+  let RATES = null;
+  const ratesReady = (async () => {
+    try { const r = await fetch('https://api.coinbase.com/v2/exchange-rates?currency=BTC', { cache: 'no-store' }); const j = await r.json(); const x = j && j.data && j.data.rates; if (x && x.USD && x.KES) RATES = { usd: Number(x.USD), kes: Number(x.KES) }; } catch (e) {}
+    if (!RATES) { const j = await load('data/rates.json'); if (j && j.btc_usd) RATES = { usd: j.btc_usd, kes: j.btc_kes }; }
+    $$('[data-sats]').forEach(fillFiat);
+  })();
+  function fiat(sats) { if (!RATES) return ''; const btc = Number(sats) / 1e8; const kes = Math.round(btc * RATES.kes), usd = btc * RATES.usd; return `≈ KES ${fmt(kes)} · US$${usd < 10 ? usd.toFixed(2) : fmt(Math.round(usd))}`; }
+  function fillFiat(el) { el.textContent = fiat(el.dataset.sats); }
+  const priceLine = (sats, big) => `<p class="price${big ? ' big' : ''}">${fmt(sats)} sats <span class="fiat" data-sats="${Number(sats)}">${fiat(sats)}</span></p>`;
+
   // Contact buttons carry the mark of the platform they open. Icon paths: Simple Icons (CC0) for the apps, drawn here for mail, phone and link.
   const ICONS = {"nostr": "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm0 7c3 0 6 1.5 6 3.5V18H6v-1.5C6 14.5 9 13 12 13z", "info": "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 6h2v7h-2v-7zm0-3h2v2h-2V7z", "whatsapp": "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z", "telegram": "M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z", "signal": "m9.12.35.27 1.09a10.845 10.845 0 0 0-3.015 1.248l-.578-.964A11.955 11.955 0 0 1 9.12.35zm5.76 0-.27 1.09a10.845 10.845 0 0 1 3.015 1.248l.581-.964A11.955 11.955 0 0 0 14.88.35zM1.725 5.797A11.955 11.955 0 0 0 .351 9.119l1.09.27A10.845 10.845 0 0 1 2.69 6.374zm-.6 6.202a10.856 10.856 0 0 1 .122-1.63l-1.112-.168a12.043 12.043 0 0 0 0 3.596l1.112-.169A10.856 10.856 0 0 1 1.125 12zm17.078 10.275-.578-.964a10.845 10.845 0 0 1-3.011 1.247l.27 1.091a11.955 11.955 0 0 0 3.319-1.374zM22.875 12a10.856 10.856 0 0 1-.122 1.63l1.112.168a12.043 12.043 0 0 0 0-3.596l-1.112.169a10.856 10.856 0 0 1 .122 1.63zm.774 2.88-1.09-.27a10.845 10.845 0 0 1-1.248 3.015l.964.581a11.955 11.955 0 0 0 1.374-3.326zm-10.02 7.875a10.952 10.952 0 0 1-3.258 0l-.17 1.112a12.043 12.043 0 0 0 3.597 0zm7.125-4.303a10.914 10.914 0 0 1-2.304 2.302l.668.906a12.019 12.019 0 0 0 2.542-2.535zM18.45 3.245a10.914 10.914 0 0 1 2.304 2.304l.906-.675a12.019 12.019 0 0 0-2.535-2.535zM3.246 5.549A10.914 10.914 0 0 1 5.55 3.245l-.675-.906A12.019 12.019 0 0 0 2.34 4.874zm19.029.248-.964.577a10.845 10.845 0 0 1 1.247 3.011l1.091-.27a11.955 11.955 0 0 0-1.374-3.318zM10.371 1.246a10.952 10.952 0 0 1 3.258 0L13.8.134a12.043 12.043 0 0 0-3.597 0zM3.823 21.957 1.5 22.5l.542-2.323-1.095-.257-.542 2.323a1.125 1.125 0 0 0 1.352 1.352l2.321-.532zm-2.642-3.041 1.095.255.375-1.61a10.828 10.828 0 0 1-1.21-2.952l-1.09.27a11.91 11.91 0 0 0 1.106 2.852zm5.25 2.437-1.61.375.255 1.095 1.185-.275a11.91 11.91 0 0 0 2.851 1.106l.27-1.091a10.828 10.828 0 0 1-2.943-1.217zM12 2.25a9.75 9.75 0 0 0-8.25 14.938l-.938 4 4-.938A9.75 9.75 0 1 0 12 2.25z", "mail": "M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.4V18h16V7.4l-8 5.2-8-5.2zM4.6 7l7.4 4.8L19.4 7H4.6z", "phone": "M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8z", "link": "M10.6 13.4a1 1 0 0 1 0-1.4l2.8-2.8a1 1 0 1 1 1.4 1.4L12 13.4a1 1 0 0 1-1.4 0zm-2.1 2.1a3 3 0 0 1 0-4.2l2.1-2.1a1 1 0 1 0-1.4-1.4L7.1 9.9a5 5 0 0 0 7 7l2.1-2.1a1 1 0 0 0-1.4-1.4l-2.1 2.1a3 3 0 0 1-4.2 0zm7-7a3 3 0 0 1 0 4.2l-2.1 2.1a1 1 0 1 0 1.4 1.4l2.1-2.1a5 5 0 0 0-7-7L7.8 9.2a1 1 0 0 0 1.4 1.4l2.1-2.1a3 3 0 0 1 4.2 0z"};
   const svg = (k) => `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="${ICONS[k]}"/></svg>`;
@@ -48,6 +60,7 @@
 
   // Nav highlight
   const here = location.pathname.split('/').pop() || 'index.html';
+  if (here === 'index.html') $$('nav.main a[href="index.html"]').forEach((x) => x.classList.add('on'));
   $$('nav.main a').forEach((a) => { if (a.getAttribute('href') === here) a.classList.add('on'); });
 
   async function load(file) {
@@ -56,6 +69,8 @@
   }
 
   document.addEventListener('click', (e) => {
+    const card = e.target.closest('.tap[data-href]');
+    if (card && !e.target.closest('a, button, input, label, select, textarea, .paybox')) { location.href = card.dataset.href; return; }
     const b = e.target.closest('[data-copy]');
     if (b) { const was = b.textContent; navigator.clipboard && navigator.clipboard.writeText(b.dataset.copy).then(() => { b.textContent = 'Copied'; setTimeout(() => (b.textContent = was), 1500); }); return; }
     const i = e.target.closest('[data-info]');
@@ -118,7 +133,7 @@
         </div>
         <section><h2>About</h2><p>${esc(m.about)}</p><div class="chips">${skillChips(m)}${workChips(m)}</div></section>
         ${mine.length ? `<section><h2>Makes</h2><div class="grid">${mine.map(productCard).join('')}</div></section>` : ''}
-        ${m.photo_credit ? `<p class="meta">${m.photo_credit_url ? `<a href="${esc(m.photo_credit_url)}" target="_blank" rel="noopener">${esc(m.photo_credit)}</a>` : esc(m.photo_credit)}</p>` : ''}`;
+`;
     });
   }
 
@@ -143,27 +158,26 @@
         ${p.photo ? `<img class="itemphoto" src="${esc(p.photo)}" alt="${esc(p.name)}">` : ''}
         <div class="hero item">
           <h1>${esc(p.name)}${p.example ? ' <span class="eg">example</span>' : ''}</h1>
-          <p class="price big">${fmt(p.price_sats)} sats</p>
+          ${priceLine(p.price_sats, true)}
           <p class="lede">${esc(p.origin)} · made by ${makerHref ? `<a href="${makerHref}">${esc(p.maker)}</a>` : esc(p.maker)}</p>
           ${actions(p, 'Message')}
         </div>
         <section><h2>About this piece</h2><p>${esc(p.about)}</p></section>
         <section><h2>How buying works</h2>
           <ol class="path"><li>Message the maker and agree the piece and the postage to your country.</li><li>Pay their lightning address from any bitcoin wallet. It arrives in seconds.</li><li>They post it from Kakuma and send you the tracking number.</li></ol></section>
-        ${p.photo_credit ? `<p class="meta">${p.photo_credit_url ? `<a href="${esc(p.photo_credit_url)}" target="_blank" rel="noopener">${esc(p.photo_credit)}</a>` : esc(p.photo_credit)}</p>` : ''}`;
+`;
     });
   }
 
   function productCard(p) {
     return `
-        <div class="card product">
+        <div class="card product tap" data-href="${itemHref(p)}">
           <a href="${itemHref(p)}">${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.name)}" loading="lazy">` : '<div class="nophoto"></div>'}</a>
           <h3><a href="${itemHref(p)}">${esc(p.name)}</a>${p.example ? ' <span class="eg">example</span>' : ''}</h3>
-          <p class="price">${fmt(p.price_sats)} sats</p>
+          ${priceLine(p.price_sats)}
           <p>${esc(p.origin)} · made by ${p.npub || p.maker_v ? `<a href="${esc(p.npub ? 'person.html?npub=' + encodeURIComponent(p.npub) : 'person.html?v=' + encodeURIComponent(p.maker))}">${esc(p.maker)}</a>` : esc(p.maker)}</p>
           <p>${esc(p.about)}</p>
           ${actions(p, 'Message')}
-          ${p.photo_credit ? `<p class="meta">${p.photo_credit_url ? `<a href="${esc(p.photo_credit_url)}" target="_blank" rel="noopener">${esc(p.photo_credit)}</a>` : esc(p.photo_credit)}</p>` : ''}
         </div>`;
   }
 
@@ -197,7 +211,7 @@
         });
         $('#count').textContent = list.length === members.length ? `${members.length} ${members.length === 1 ? 'person' : 'people'}` : `${list.length} of ${members.length}`;
         membersEl.innerHTML = list.map((m) => `
-          <div class="card person">
+          <div class="card person tap" data-href="${personHref(m)}">
             <a class="head" href="${personHref(m)}">${avatar(m)}<span><h3>${esc(m.name)}${m.example ? ' <span class="eg">example</span>' : ''}</h3><span class="small">${esc(m.role)}${m.location ? ` · ${esc(m.location)}` : ''}</span></span></a>
             <p>${esc(m.about)}</p>
             <div class="chips">${skillChips(m)}</div>
@@ -234,6 +248,7 @@
       });
     });
     function renderMarket(items) {
+      if (here === 'index.html') items = items.slice(0, 4);
       marketEl.innerHTML = items.map((p) => productCard(Object.assign({}, p, { maker_v: !p.npub && verifiedMakers.has(p.maker) }))).join('');
     }
   }
@@ -294,14 +309,26 @@
         if (answered < l.quiz.length) { res.innerHTML = '<span class="bad">Answer every question first.</span>'; return; }
         if (right === l.quiz.length) {
           state.done[cur] = true; save();
-          res.innerHTML = '<span class="ok">All correct. Lesson complete.</span>';
-          setTimeout(() => { cur = cur + 1; if (cur >= C.lessons.length) cur = 'cert'; render(); window.scrollTo({ top: courseEl.offsetTop - 20, behavior: 'smooth' }); }, 700);
+          res.innerHTML = '<span class="ok">All three right. Lesson ' + (cur + 1) + ' done.</span>';
+          celebrate(e.target.querySelector('button[type=submit]'));
+          setTimeout(() => { cur = cur + 1; if (cur >= C.lessons.length) cur = 'cert'; render(); window.scrollTo({ top: courseEl.offsetTop - 20, behavior: 'smooth' }); }, 1600);
         } else {
           res.innerHTML = `<span class="bad">${right} of ${l.quiz.length} correct. Read the lesson again and try once more.</span>`;
         }
       });
     }
 
+    function celebrate(from) {
+      const r = from.getBoundingClientRect(); const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const colours = ['#f7931a', '#ffb45c', '#1d1d1f', '#ffffff', '#ffd27a'];
+      for (let i = 0; i < 36; i++) {
+        const s = document.createElement('i'); s.className = 'confetti';
+        const ang = (Math.PI * 2 * i) / 36 + Math.random() * 0.4, dist = 90 + Math.random() * 110;
+        s.style.cssText = `left:${cx}px;top:${cy}px;background:${colours[i % colours.length]};--dx:${Math.cos(ang) * dist}px;--dy:${Math.sin(ang) * dist - 60}px;--rot:${Math.random() * 720 - 360}deg;animation-delay:${Math.random() * 120}ms`;
+        document.body.appendChild(s); setTimeout(() => s.remove(), 1500);
+      }
+      from.classList.add('pop'); setTimeout(() => from.classList.remove('pop'), 700);
+    }
     function certCode(name, date) {
       let h = 0; const s = (name + '|' + date + '|' + C.id).toLowerCase();
       for (let i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) >>> 0; }

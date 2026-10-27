@@ -79,6 +79,10 @@ What this means for the hub:
 
 To change the relays, edit the `RELAYS` list at the top of `nostr.js`. To change the tag, change `TAG`, and tell existing members to republish.
 
+## Prices in shillings and dollars
+
+Every sats price shows a shilling and dollar figure beside it. The rate comes from Coinbase's public exchange-rates endpoint when the phone can reach it, otherwise from `data/rates.json`. Update that file now and then (bitcoin price in USD and KES) so the fallback stays close.
+
 ## Test before you publish
 
 - `python3 check.py` for the data files and links.

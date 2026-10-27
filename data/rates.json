@@ -1,0 +1,6 @@
+{
+  "btc_usd": 80473,
+  "btc_kes": 10455864,
+  "updated": "2026-10-28",
+  "_comment": "Fallback rates when the live price cannot be fetched. Update now and then."
+}
