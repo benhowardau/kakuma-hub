@@ -37,15 +37,22 @@
   // Members directory with search and skill filter
   const membersEl = $('#members');
   if (membersEl) {
-    Promise.all([load('data/members.json'), load('data/hub.json'), communityListings('member')]).then(([verified, hub, community]) => {
+    Promise.all([load('data/members.json'), load('data/hub.json')]).then(([verified, hub]) => {
       const blocked = new Set((hub && hub.blocked) || []), hubVerified = new Set((hub && hub.verified) || []);
-      const members = verified.map((m) => Object.assign({ verified: true }, m)).concat(
-        community.filter((c) => !blocked.has(c.npub)).map((c) => Object.assign({}, c.data, { npub: c.npub, verified: hubVerified.has(c.npub) })));
-      const skills = Array.from(new Set(members.flatMap((m) => m.skills || []))).sort();
+      let members = verified.map((m) => Object.assign({ verified: true }, m));
       const chips = $('#skills');
-      chips.innerHTML = skills.map((s) => `<button type="button" class="chip" data-skill="${esc(s)}">${esc(s)}</button>`).join('');
       let active = '';
       const input = $('#search');
+      function renderChips() {
+        const skills = Array.from(new Set(members.flatMap((m) => m.skills || []))).sort();
+        chips.innerHTML = skills.map((s) => `<button type="button" class="chip${s === active ? ' on' : ''}" data-skill="${esc(s)}">${esc(s)}</button>`).join('');
+      }
+      // the verified list shows at once; community profiles are added when the relays answer
+      communityListings('member').then((community) => {
+        const seen = new Set(members.map((m) => m.npub).filter(Boolean));
+        const extra = community.filter((c) => !blocked.has(c.npub) && !seen.has(c.npub)).map((c) => Object.assign({}, c.data, { npub: c.npub, verified: hubVerified.has(c.npub) }));
+        if (extra.length) { members = members.concat(extra); renderChips(); render(); }
+      });
       function render() {
         const q = (input.value || '').trim().toLowerCase();
         const list = members.filter((m) => {
@@ -70,16 +77,22 @@
         render();
       });
       input.addEventListener('input', render);
-      render();
+      renderChips(); render();
     });
   }
 
   // Market
   const marketEl = $('#market');
   if (marketEl) {
-    Promise.all([load('data/products.json'), load('data/hub.json'), communityListings('product')]).then(([curated, hub, community]) => {
+    Promise.all([load('data/products.json'), load('data/hub.json')]).then(([curated, hub]) => {
       const blocked = new Set((hub && hub.blocked) || []);
-      const items = curated.concat(community.filter((c) => !blocked.has(c.npub)).map((c) => Object.assign({}, c.data, { npub: c.npub })));
+      renderMarket(curated);
+      communityListings('product').then((community) => {
+        const extra = community.filter((c) => !blocked.has(c.npub)).map((c) => Object.assign({}, c.data, { npub: c.npub }));
+        if (extra.length) renderMarket(curated.concat(extra));
+      });
+    });
+    function renderMarket(items) {
       marketEl.innerHTML = items.map((p) => `
         <div class="card">
           ${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.name)}" style="border-radius:10px;margin-bottom:10px">` : ''}
@@ -89,7 +102,7 @@
           <p>Made by ${esc(p.maker)}${p.contact ? ` · <a href="${esc(p.contact)}" target="_blank" rel="noopener">Order</a>` : ''}</p>
           ${payBlock(p.lightning)}
         </div>`).join('');
-    });
+    }
   }
 
   // Events
@@ -179,6 +192,7 @@
         const code = certCode(state.name, date);
         $('#certwrap').innerHTML = `
           <div class="cert" id="cert">
+            <div class="logo"><img src="logo.svg" alt="" width="44" height="44"></div>
             <div class="t">Bitcoin Kakuma Hub</div>
             <div class="c" style="margin-top:14px">Certificate of completion</div>
             <div class="n">${esc(state.name)}</div>
@@ -191,16 +205,18 @@
         $('#dl').addEventListener('click', () => {
           const cv = document.createElement('canvas'); cv.width = 1600; cv.height = 1131; const x = cv.getContext('2d');
           x.fillStyle = '#ffffff'; x.fillRect(0, 0, 1600, 1131);
-          x.strokeStyle = '#f7931a'; x.lineWidth = 12; x.strokeRect(40, 40, 1520, 1051);
-          x.fillStyle = '#f7931a'; x.beginPath(); x.arc(800, 190, 54, 0, Math.PI * 2); x.fill();
-          x.fillStyle = '#fff'; x.font = 'bold 64px Helvetica, Arial'; x.textAlign = 'center'; x.fillText('₿', 800, 213);
-          x.fillStyle = '#8a4c00'; x.font = '600 28px Helvetica, Arial'; x.fillText('B I T C O I N   K A K U M A   H U B', 800, 300);
-          x.fillStyle = '#161412'; x.font = '36px Helvetica, Arial'; x.fillText('Certificate of completion', 800, 400);
-          x.font = 'bold 84px Helvetica, Arial'; x.fillText(state.name, 800, 530);
-          x.font = '36px Helvetica, Arial'; x.fillText('completed ' + C.title, 800, 620);
-          x.fillText(C.lessons.length + ' lessons  ·  ' + date, 800, 680);
-          x.fillStyle = '#6b6560'; x.font = '26px Helvetica, Arial'; x.fillText('Kakuma Refugee Camp, Kenya  ·  Certificate ' + code, 800, 980);
-          const a = document.createElement('a'); a.download = 'bitcoin-kakuma-hub-certificate.png'; a.href = cv.toDataURL('image/png'); a.click();
+          x.strokeStyle = '#e6e6e3'; x.lineWidth = 2; x.strokeRect(40, 40, 1520, 1051);
+          const finish = () => {
+            x.textAlign = 'center';
+            x.fillStyle = '#6e6e73'; x.font = '600 24px -apple-system, Helvetica, Arial'; x.fillText('B I T C O I N   K A K U M A   H U B', 800, 320);
+            x.fillStyle = '#1d1d1f'; x.font = '36px -apple-system, Helvetica, Arial'; x.fillText('Certificate of completion', 800, 410);
+            x.font = '600 88px -apple-system, Helvetica, Arial'; x.fillText(state.name, 800, 540);
+            x.font = '36px -apple-system, Helvetica, Arial'; x.fillText('completed ' + C.title, 800, 630);
+            x.fillText(C.lessons.length + ' lessons  ·  ' + date, 800, 690);
+            x.fillStyle = '#6e6e73'; x.font = '26px -apple-system, Helvetica, Arial'; x.fillText('Kakuma Refugee Camp, Kenya  ·  Certificate ' + code, 800, 980);
+            const a = document.createElement('a'); a.download = 'bitcoin-kakuma-hub-certificate.png'; a.href = cv.toDataURL('image/png'); a.click();
+          };
+          const logo = new Image(); logo.onload = () => { x.drawImage(logo, 740, 150, 120, 120); finish(); }; logo.onerror = finish; logo.src = 'logo.svg';
         });
       };
       $('#nameform').addEventListener('submit', (e) => { e.preventDefault(); const v = $('#name').value.trim(); if (!v) return; state.name = v; state.date = date; save(); draw(); });
