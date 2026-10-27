@@ -28,7 +28,7 @@
 
 
   // Contact buttons carry the mark of the platform they open. Icon paths: Simple Icons (CC0) for the apps, drawn here for mail, phone and link.
-  const ICONS = {"whatsapp": "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z", "telegram": "M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z", "signal": "m9.12.35.27 1.09a10.845 10.845 0 0 0-3.015 1.248l-.578-.964A11.955 11.955 0 0 1 9.12.35zm5.76 0-.27 1.09a10.845 10.845 0 0 1 3.015 1.248l.581-.964A11.955 11.955 0 0 0 14.88.35zM1.725 5.797A11.955 11.955 0 0 0 .351 9.119l1.09.27A10.845 10.845 0 0 1 2.69 6.374zm-.6 6.202a10.856 10.856 0 0 1 .122-1.63l-1.112-.168a12.043 12.043 0 0 0 0 3.596l1.112-.169A10.856 10.856 0 0 1 1.125 12zm17.078 10.275-.578-.964a10.845 10.845 0 0 1-3.011 1.247l.27 1.091a11.955 11.955 0 0 0 3.319-1.374zM22.875 12a10.856 10.856 0 0 1-.122 1.63l1.112.168a12.043 12.043 0 0 0 0-3.596l-1.112.169a10.856 10.856 0 0 1 .122 1.63zm.774 2.88-1.09-.27a10.845 10.845 0 0 1-1.248 3.015l.964.581a11.955 11.955 0 0 0 1.374-3.326zm-10.02 7.875a10.952 10.952 0 0 1-3.258 0l-.17 1.112a12.043 12.043 0 0 0 3.597 0zm7.125-4.303a10.914 10.914 0 0 1-2.304 2.302l.668.906a12.019 12.019 0 0 0 2.542-2.535zM18.45 3.245a10.914 10.914 0 0 1 2.304 2.304l.906-.675a12.019 12.019 0 0 0-2.535-2.535zM3.246 5.549A10.914 10.914 0 0 1 5.55 3.245l-.675-.906A12.019 12.019 0 0 0 2.34 4.874zm19.029.248-.964.577a10.845 10.845 0 0 1 1.247 3.011l1.091-.27a11.955 11.955 0 0 0-1.374-3.318zM10.371 1.246a10.952 10.952 0 0 1 3.258 0L13.8.134a12.043 12.043 0 0 0-3.597 0zM3.823 21.957 1.5 22.5l.542-2.323-1.095-.257-.542 2.323a1.125 1.125 0 0 0 1.352 1.352l2.321-.532zm-2.642-3.041 1.095.255.375-1.61a10.828 10.828 0 0 1-1.21-2.952l-1.09.27a11.91 11.91 0 0 0 1.106 2.852zm5.25 2.437-1.61.375.255 1.095 1.185-.275a11.91 11.91 0 0 0 2.851 1.106l.27-1.091a10.828 10.828 0 0 1-2.943-1.217zM12 2.25a9.75 9.75 0 0 0-8.25 14.938l-.938 4 4-.938A9.75 9.75 0 1 0 12 2.25z", "mail": "M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.4V18h16V7.4l-8 5.2-8-5.2zM4.6 7l7.4 4.8L19.4 7H4.6z", "phone": "M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8z", "link": "M10.6 13.4a1 1 0 0 1 0-1.4l2.8-2.8a1 1 0 1 1 1.4 1.4L12 13.4a1 1 0 0 1-1.4 0zm-2.1 2.1a3 3 0 0 1 0-4.2l2.1-2.1a1 1 0 1 0-1.4-1.4L7.1 9.9a5 5 0 0 0 7 7l2.1-2.1a1 1 0 0 0-1.4-1.4l-2.1 2.1a3 3 0 0 1-4.2 0zm7-7a3 3 0 0 1 0 4.2l-2.1 2.1a1 1 0 1 0 1.4 1.4l2.1-2.1a5 5 0 0 0-7-7L7.8 9.2a1 1 0 0 0 1.4 1.4l2.1-2.1a3 3 0 0 1 4.2 0z"};
+  const ICONS = {"nostr": "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm0 7c3 0 6 1.5 6 3.5V18H6v-1.5C6 14.5 9 13 12 13z", "info": "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 6h2v7h-2v-7zm0-3h2v2h-2V7z", "whatsapp": "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z", "telegram": "M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z", "signal": "m9.12.35.27 1.09a10.845 10.845 0 0 0-3.015 1.248l-.578-.964A11.955 11.955 0 0 1 9.12.35zm5.76 0-.27 1.09a10.845 10.845 0 0 1 3.015 1.248l.581-.964A11.955 11.955 0 0 0 14.88.35zM1.725 5.797A11.955 11.955 0 0 0 .351 9.119l1.09.27A10.845 10.845 0 0 1 2.69 6.374zm-.6 6.202a10.856 10.856 0 0 1 .122-1.63l-1.112-.168a12.043 12.043 0 0 0 0 3.596l1.112-.169A10.856 10.856 0 0 1 1.125 12zm17.078 10.275-.578-.964a10.845 10.845 0 0 1-3.011 1.247l.27 1.091a11.955 11.955 0 0 0 3.319-1.374zM22.875 12a10.856 10.856 0 0 1-.122 1.63l1.112.168a12.043 12.043 0 0 0 0-3.596l-1.112.169a10.856 10.856 0 0 1 .122 1.63zm.774 2.88-1.09-.27a10.845 10.845 0 0 1-1.248 3.015l.964.581a11.955 11.955 0 0 0 1.374-3.326zm-10.02 7.875a10.952 10.952 0 0 1-3.258 0l-.17 1.112a12.043 12.043 0 0 0 3.597 0zm7.125-4.303a10.914 10.914 0 0 1-2.304 2.302l.668.906a12.019 12.019 0 0 0 2.542-2.535zM18.45 3.245a10.914 10.914 0 0 1 2.304 2.304l.906-.675a12.019 12.019 0 0 0-2.535-2.535zM3.246 5.549A10.914 10.914 0 0 1 5.55 3.245l-.675-.906A12.019 12.019 0 0 0 2.34 4.874zm19.029.248-.964.577a10.845 10.845 0 0 1 1.247 3.011l1.091-.27a11.955 11.955 0 0 0-1.374-3.318zM10.371 1.246a10.952 10.952 0 0 1 3.258 0L13.8.134a12.043 12.043 0 0 0-3.597 0zM3.823 21.957 1.5 22.5l.542-2.323-1.095-.257-.542 2.323a1.125 1.125 0 0 0 1.352 1.352l2.321-.532zm-2.642-3.041 1.095.255.375-1.61a10.828 10.828 0 0 1-1.21-2.952l-1.09.27a11.91 11.91 0 0 0 1.106 2.852zm5.25 2.437-1.61.375.255 1.095 1.185-.275a11.91 11.91 0 0 0 2.851 1.106l.27-1.091a10.828 10.828 0 0 1-2.943-1.217zM12 2.25a9.75 9.75 0 0 0-8.25 14.938l-.938 4 4-.938A9.75 9.75 0 1 0 12 2.25z", "mail": "M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.4V18h16V7.4l-8 5.2-8-5.2zM4.6 7l7.4 4.8L19.4 7H4.6z", "phone": "M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8z", "link": "M10.6 13.4a1 1 0 0 1 0-1.4l2.8-2.8a1 1 0 1 1 1.4 1.4L12 13.4a1 1 0 0 1-1.4 0zm-2.1 2.1a3 3 0 0 1 0-4.2l2.1-2.1a1 1 0 1 0-1.4-1.4L7.1 9.9a5 5 0 0 0 7 7l2.1-2.1a1 1 0 0 0-1.4-1.4l-2.1 2.1a3 3 0 0 1-4.2 0zm7-7a3 3 0 0 1 0 4.2l-2.1 2.1a1 1 0 1 0 1.4 1.4l2.1-2.1a5 5 0 0 0-7-7L7.8 9.2a1 1 0 0 0 1.4 1.4l2.1-2.1a3 3 0 0 1 4.2 0z"};
   const svg = (k) => `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="${ICONS[k]}"/></svg>`;
   function contactKind(url) {
     url = String(url || '');
@@ -58,13 +58,15 @@
   document.addEventListener('click', (e) => {
     const b = e.target.closest('[data-copy]');
     if (b) { const was = b.textContent; navigator.clipboard && navigator.clipboard.writeText(b.dataset.copy).then(() => { b.textContent = 'Copied'; setTimeout(() => (b.textContent = was), 1500); }); return; }
+    const i = e.target.closest('[data-info]');
+    if (i) { const t = i.closest('.paybox').querySelector('[data-infotext]'); t.hidden = !t.hidden; return; }
     const p = e.target.closest('[data-pay]');
     if (p) {
       const addr = p.dataset.pay; const box = p.parentElement.querySelector('.paybox');
       if (box) { box.remove(); p.textContent = 'Pay in bitcoin'; return; }
       p.textContent = 'Hide';
       const el = document.createElement('div'); el.className = 'paybox';
-      el.innerHTML = `<span>Lightning address. Paste it in any bitcoin wallet, or open one you have.</span><code>${esc(addr)}</code><div class="row"><button type="button" class="btn ghost" data-copy="${esc(addr)}">Copy address</button><a class="btn ghost" href="lightning:${esc(addr)}">Open wallet</a></div>`;
+      el.innerHTML = `<div class="addr"><code>${esc(addr)}</code><button type="button" class="info" data-info aria-label="What is this">${svg('info')}</button></div><span class="small" data-infotext hidden>Paste this into your bitcoin wallet to pay.</span><div class="row"><button type="button" class="btn ghost" data-copy="${esc(addr)}">Copy address</button><a class="btn ghost" href="lightning:${esc(addr)}">Open wallet</a></div>`;
       p.parentElement.appendChild(el);
     }
   });
@@ -85,20 +87,23 @@
   const personHref = (m) => m.npub ? `person.html?npub=${encodeURIComponent(m.npub)}` : `person.html?v=${encodeURIComponent(m.name)}`;
   const skillChips = (m) => (m.skills || []).map((s) => `<span class="chip">${esc(s)}</span>`).join('');
   const workChips = (m) => (m.work || []).map((w) => `<a class="chip link" href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.label)} ↗</a>`).join('');
-  const actions = (m, verb) => `<div class="actions">${contactBtn(m.contact, verb)}${m.lightning ? `<button type="button" class="btn ghost" data-pay="${esc(m.lightning)}">Pay in bitcoin</button>` : ''}</div>`;
+  const nostrBtn = (npub) => npub ? `<a class="btn ghost" href="https://primal.net/p/${esc(npub)}" target="_blank" rel="noopener">${svg('nostr')}<span>Message on Nostr</span></a>` : '';
+  const actions = (m, verb) => `<div class="actions">${contactBtn(m.contact, verb)}${nostrBtn(m.npub)}${m.lightning ? `<button type="button" class="btn ghost" data-pay="${esc(m.lightning)}">Pay in bitcoin</button>` : ''}</div>`;
+  const itemHref = (p) => p.npub ? `item.html?npub=${encodeURIComponent(p.npub)}&d=${encodeURIComponent(p.d || '')}` : `item.html?i=${p.i}`;
 
   const personEl = $('#person');
   if (personEl) {
     const q = new URLSearchParams(location.search);
     Promise.all([load('data/members.json'), load('data/hub.json'), load('data/products.json')]).then(async ([verified, hub, curated]) => {
       let m = null, mine = [];
+      curated.forEach((p, i) => { p.i = i; });
       if (q.get('v')) { m = verified.find((x) => x.name === q.get('v')); if (m) m = Object.assign({ verified: true }, m); mine = curated.filter((p) => p.maker === q.get('v')); }
       else if (q.get('npub')) {
         const npub = q.get('npub'); const hubVerified = new Set((hub && hub.verified) || []);
         try {
           const N = await import('./nostr.js'); const hex = N.hexFromNpub(npub);
           const [ms, ps] = await Promise.all([N.fetchListings('member', { authors: [hex], tag: q.get('tag') || undefined, maxWait: 5000 }), N.fetchListings('product', { authors: [hex], tag: q.get('tag') || undefined, maxWait: 5000 })]);
-          if (ms[0]) m = Object.assign({}, ms[0].data, { npub, verified: hubVerified.has(npub) }); mine = ps.map((p) => p.data);
+          if (ms[0]) m = Object.assign({}, ms[0].data, { npub, verified: hubVerified.has(npub) }); mine = ps.map((p) => Object.assign({}, p.data, { npub, d: p.d }));
         } catch (e) {}
       }
       if (!m) { personEl.innerHTML = '<div class="hero"><h1>Not found</h1><p class="lede">This profile is not online right now. It may have been removed, or the connection dropped.</p></div>'; return; }
@@ -117,15 +122,47 @@
     });
   }
 
+
+  // One listing on its own page
+  const itemEl = $('#item');
+  if (itemEl) {
+    const q = new URLSearchParams(location.search);
+    Promise.all([load('data/products.json'), load('data/members.json')]).then(async ([curated, verified]) => {
+      let p = null;
+      if (q.get('i') !== null) { p = curated[Number(q.get('i'))]; if (p) { p.i = Number(q.get('i')); p.maker_v = verified.some((m) => m.name === p.maker); } }
+      else if (q.get('npub')) {
+        try { const N = await import('./nostr.js'); const hex = N.hexFromNpub(q.get('npub'));
+          const ps = await N.fetchListings('product', { authors: [hex], tag: q.get('tag') || undefined, maxWait: 5000 });
+          const hit = ps.find((x) => x.d === q.get('d')) || ps[0]; if (hit) p = Object.assign({}, hit.data, { npub: q.get('npub'), d: hit.d });
+        } catch (e) {}
+      }
+      if (!p) { itemEl.innerHTML = '<div class="hero"><h1>Not found</h1><p class="lede">This listing is not online right now. It may have been removed, or the connection dropped.</p></div>'; return; }
+      document.title = p.name + ', Bitcoin Kakuma Hub';
+      const makerHref = p.npub ? 'person.html?npub=' + encodeURIComponent(p.npub) : (p.maker_v ? 'person.html?v=' + encodeURIComponent(p.maker) : '');
+      itemEl.innerHTML = `
+        ${p.photo ? `<img class="itemphoto" src="${esc(p.photo)}" alt="${esc(p.name)}">` : ''}
+        <div class="hero item">
+          <h1>${esc(p.name)}${p.example ? ' <span class="eg">example</span>' : ''}</h1>
+          <p class="price big">${fmt(p.price_sats)} sats</p>
+          <p class="lede">${esc(p.origin)} · made by ${makerHref ? `<a href="${makerHref}">${esc(p.maker)}</a>` : esc(p.maker)}</p>
+          ${actions(p, 'Message')}
+        </div>
+        <section><h2>About this piece</h2><p>${esc(p.about)}</p></section>
+        <section><h2>How buying works</h2>
+          <ol class="path"><li>Message the maker and agree the piece and the postage to your country.</li><li>Pay their lightning address from any bitcoin wallet. It arrives in seconds.</li><li>They post it from Kakuma and send you the tracking number.</li></ol></section>
+        ${p.photo_credit ? `<p class="meta">${p.photo_credit_url ? `<a href="${esc(p.photo_credit_url)}" target="_blank" rel="noopener">${esc(p.photo_credit)}</a>` : esc(p.photo_credit)}</p>` : ''}`;
+    });
+  }
+
   function productCard(p) {
     return `
         <div class="card product">
-          ${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.name)}" loading="lazy">` : '<div class="nophoto"></div>'}
-          <h3>${esc(p.name)}${p.example ? ' <span class="eg">example</span>' : ''}</h3>
+          <a href="${itemHref(p)}">${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.name)}" loading="lazy">` : '<div class="nophoto"></div>'}</a>
+          <h3><a href="${itemHref(p)}">${esc(p.name)}</a>${p.example ? ' <span class="eg">example</span>' : ''}</h3>
           <p class="price">${fmt(p.price_sats)} sats</p>
           <p>${esc(p.origin)} · made by ${p.npub || p.maker_v ? `<a href="${esc(p.npub ? 'person.html?npub=' + encodeURIComponent(p.npub) : 'person.html?v=' + encodeURIComponent(p.maker))}">${esc(p.maker)}</a>` : esc(p.maker)}</p>
           <p>${esc(p.about)}</p>
-          <div class="actions">${contactBtn(p.contact, 'Order')}${p.lightning ? `<button type="button" class="btn ghost" data-pay="${esc(p.lightning)}">Pay in bitcoin</button>` : ''}</div>
+          ${actions(p, 'Message')}
           ${p.photo_credit ? `<p class="meta">${p.photo_credit_url ? `<a href="${esc(p.photo_credit_url)}" target="_blank" rel="noopener">${esc(p.photo_credit)}</a>` : esc(p.photo_credit)}</p>` : ''}
         </div>`;
   }
@@ -186,11 +223,12 @@
     Promise.all([load('data/products.json'), load('data/hub.json'), load('data/members.json')]).then(([curated, hub, verified]) => {
       const blocked = new Set((hub && hub.blocked) || []);
       verifiedMakers = new Set(verified.map((m) => m.name));
+      curated.forEach((p, i) => { p.i = i; });
       renderMarket(curated);
       const status = $('#mstatus');
       if (status) status.innerHTML = '<span class="wait"><span class="spin"></span>Looking for new pieces…</span>';
       communityListings('product').then((community) => {
-        const extra = community.filter((c) => !blocked.has(c.npub)).map((c) => Object.assign({}, c.data, { npub: c.npub }));
+        const extra = community.filter((c) => !blocked.has(c.npub)).map((c) => Object.assign({}, c.data, { npub: c.npub, d: c.d }));
         if (extra.length) renderMarket(curated.concat(extra));
         if (status) status.textContent = '';
       });

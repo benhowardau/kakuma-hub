@@ -59,15 +59,21 @@ The placeholder photos are from Wikimedia Commons under CC0, CC BY-SA 4.0 and pu
 
 Then run `python3 check.py` (any computer with Python; `python3 check.py --offline` without internet). It tells you exactly which entry is wrong. Fix it, run again, upload.
 
-## Community profiles (how sign-up works without a server)
+## Login and profiles (how sign-up works without a server)
 
-Members create their own profile on `profile.html`. The phone makes a Nostr key, keeps it, and signs everything the member publishes. The profile and products are published as events tagged `bitcoinkakuma` to four public relays (`nostr.js`, top). The directory and market read those relays when the page opens and show the results after the verified list.
+People create their own profile on `profile.html`. There is no password and no account database.
+
+- **One tap on a modern phone.** The button uses a passkey: the phone's own fingerprint or face. The browser derives the profile key from the passkey (the WebAuthn PRF extension), so nothing is typed or written down. Passkeys sync through Google Password Manager on Android and iCloud Keychain on iPhone, so a new phone signed into the same Google or Apple account gets the same profile with one tap. Works on Android with Chrome or Samsung Internet and Google Password Manager, and on iPhone from iOS 18 (18.4 or later is safest).
+- **Older phones.** When the phone cannot do that kind of passkey, the same button makes a plain key on the phone and opens the backup fold: one tap saves a small text file the person keeps in Drive or email, and one tap on a new phone restores it. The typed key is under Advanced for people who want it.
+- **Lost everything.** A profile is not money. The person makes a new one in five minutes and the hub moves their verified badge: add the new npub to `verified` in `data/hub.json` and the old one to `blocked`.
+- **The domain matters.** Passkeys are tied to the site's domain. Set the hub's real domain before people start signing up; moving from `github.io` to a custom domain later means passkey logins made on the old address will not open on the new one (the backup file still will). If that happens, people tap the button once on the new address and publish again.
+
+Profiles and products are published as events tagged `bitcoinkakuma` to four public relays (`nostr.js`, top). The directory and market read those relays when the page opens and show the results after the verified list.
 
 What this means for the hub:
 
-- Nothing to run. The relays are free public infrastructure used by millions of Nostr users. If one is down, the others answer; if all four fail, the pages still show the verified lists.
-- Nothing to reset. There are no passwords. A member who loses their phone and their `nsec` backup phrase creates a new profile. Teach the backup like the bitcoin words.
-- Every profile also appears in Nostr apps (Primal, Damus, Amethyst) with a zap button, because `profile.html` publishes the standard Nostr profile too. That is free reach to the whole bitcoin world.
+- Nothing to run. The relays are free public infrastructure used by millions. If one is down, the others answer; if all four fail, the pages still show the verified lists.
+- Every profile also appears in Nostr apps (Primal, Damus, Amethyst) with a zap button, because `profile.html` publishes the standard Nostr profile too. Free reach to the whole bitcoin world.
 - A member can add a photo link on their profile; it shows on their card and page and in Nostr apps.
 - Moderation is `data/hub.json`. To hide someone, put their npub (shown on their card's Nostr link, `primal.net/p/npub1…`) in `blocked`. To mark a community profile as hub verified, put their npub in `verified`. Upload the file; done.
 
@@ -76,7 +82,7 @@ To change the relays, edit the `RELAYS` list at the top of `nostr.js`. To change
 ## Test before you publish
 
 - `python3 check.py` for the data files and links.
-- Open the site in a phone browser: home, learn, course (answer one quiz), members (search a skill), market, profile (create, publish, see yourself in members, remove, log out, log in with the nsec).
+- Open the site in a phone browser: home, learn, course (answer one quiz), people (search a skill, open a profile), market (tap Pay in bitcoin), profile (one tap in, publish, see yourself in people, save the backup file, log out, one tap back in).
 - `profile.html?tag=bitcoinkakuma-test`, `members.html?tag=bitcoinkakuma-test` and `market.html?tag=bitcoinkakuma-test` use a separate test tag, so you can try everything without appearing in the real directory.
 
 ## Things that are deliberately not here
