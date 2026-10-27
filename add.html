@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="styles.css"><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%23f7931a%22/><text x=%2250%22 y=%2268%22 font-size=%2256%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-weight=%22bold%22>₿</text></svg>"><title>Add yourself, Bitcoin Kakuma Hub</title><meta name="robots" content="noindex"></head>
+<body><div class="wrap"><div class="top"><a class="brand" href="index.html"><span class="mark">₿</span>Bitcoin Kakuma Hub</a><nav class="main"><a href="learn.html">Learn</a><a href="course.html">Course</a><a href="members.html">Members</a><a href="market.html">Market</a><a href="profile.html">My profile</a></nav></div>
+<div class="hero"><h1>Add yourself</h1><p class="lede">Fill this in and press the button. It writes the entry for you. Copy it and send it to the hub on WhatsApp, or paste it into the data file yourself if you know how.</p></div>
+<div class="chips" id="kind"><button type="button" class="chip on" data-kind="member">I offer a skill</button><button type="button" class="chip" data-kind="product">I make a product</button></div>
+<form id="f" class="lesson">
+  <div id="member-fields">
+    <label class="small">Your name<input class="search" name="name" required maxlength="60"></label>
+    <label class="small">What you do, in a few words (for example: Web developer)<input class="search" name="role" required maxlength="60"></label>
+    <label class="small">Skills, separated by commas (for example: Web development, Design)<input class="search" name="skills" required maxlength="200"></label>
+    <label class="small">Two sentences about your work<textarea class="search" name="about" rows="3" required maxlength="400"></textarea></label>
+    <label class="small">Where you live (for example: Kakuma 1, Kalobeyei)<input class="search" name="location" maxlength="60"></label>
+    <label class="small">Link to your work (website, GitHub, portfolio), optional<input class="search" name="work1" placeholder="https://" maxlength="200"></label>
+    <label class="small">Second link, optional<input class="search" name="work2" placeholder="https://" maxlength="200"></label>
+  </div>
+  <div id="product-fields" hidden>
+    <label class="small">Name of the product (for example: Beaded necklace)<input class="search" name="pname" maxlength="80"></label>
+    <label class="small">Your name (the maker)<input class="search" name="maker" maxlength="60"></label>
+    <label class="small">Tradition or origin (for example: South Sudanese beadwork)<input class="search" name="origin" maxlength="80"></label>
+    <label class="small">Price in sats (numbers only)<input class="search" name="price" type="number" min="1" step="1"></label>
+    <label class="small">Two sentences: what it is, how long it takes, how it ships<textarea class="search" name="pabout" rows="3" maxlength="400"></textarea></label>
+  </div>
+  <label class="small">Your lightning address (for example: name@walletofsatoshi.com), optional<input class="search" name="lightning" maxlength="100"></label>
+  <label class="small">WhatsApp number with country code (for example: 254700000000), or an email<input class="search" name="contact" maxlength="100"></label>
+  <p><button class="btn" type="submit">Write my entry</button></p>
+  <div id="out" hidden><p class="small">Copy this and send it to the hub, or add it to <code>data/members.json</code> or <code>data/products.json</code>.</p><textarea class="search" id="json" rows="12" readonly></textarea><p><button class="btn" type="button" id="copy">Copy</button></p></div>
+</form>
+<footer><div class="fl"><a href="index.html">Home</a><a href="learn.html">Learn</a><a href="course.html">Course</a><a href="members.html">Members</a><a href="market.html">Market</a><a href="profile.html">My profile</a></div><p style="margin-top:14px">Bitcoin Kakuma Hub, Clinic 7, Kakuma Refugee Camp, Turkana County, Kenya. Part of the Bitcoin Nairobi community, with <a href="https://x.com/BitDevsNBO">BitDevs Nairobi</a>.</p></footer></div>
+<script>
+(function(){
+  var kind='member';
+  var kinds=document.getElementById('kind');
+  kinds.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;kind=b.dataset.kind;Array.prototype.forEach.call(kinds.children,function(c){c.classList.toggle('on',c===b)});document.getElementById('member-fields').hidden=kind!=='member';document.getElementById('product-fields').hidden=kind!=='product';Array.prototype.forEach.call(document.querySelectorAll('#member-fields [required]'),function(i){i.required=kind==='member'});});
+  function contact(v){v=(v||'').trim();if(!v)return'';if(v.indexOf('@')>0&&v.indexOf('http')!==0)return'mailto:'+v;if(/^\+?\d[\d\s]{6,}$/.test(v))return'https://wa.me/'+v.replace(/\D/g,'');return v;}
+  document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();var d=new FormData(e.target),o;
+    if(kind==='member'){var work=[];[['Website',d.get('work1')],['More',d.get('work2')]].forEach(function(w){if(w[1]&&w[1].trim())work.push({label:/github/i.test(w[1])?'GitHub':/linkedin/i.test(w[1])?'LinkedIn':w[0],url:w[1].trim()})});
+      o={name:d.get('name').trim(),role:d.get('role').trim(),skills:d.get('skills').split(',').map(function(s){return s.trim()}).filter(Boolean),about:d.get('about').trim(),work:work,lightning:(d.get('lightning')||'').trim(),contact:contact(d.get('contact')),location:(d.get('location')||'').trim()};}
+    else{o={name:(d.get('pname')||'').trim(),maker:(d.get('maker')||'').trim(),origin:(d.get('origin')||'').trim(),price_sats:Number(d.get('price')||0),about:(d.get('pabout')||'').trim(),photo:'',lightning:(d.get('lightning')||'').trim(),contact:contact(d.get('contact'))};}
+    document.getElementById('json').value=JSON.stringify(o,null,2)+',';document.getElementById('out').hidden=false;});
+  document.getElementById('copy').addEventListener('click',function(){var t=document.getElementById('json');t.select();try{navigator.clipboard.writeText(t.value)}catch(e){document.execCommand('copy')}this.textContent='Copied';});
+})();
+</script></body></html>

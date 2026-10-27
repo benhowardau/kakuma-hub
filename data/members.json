@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Example: Achan Deng",
+    "role": "Web developer",
+    "skills": ["Web development", "Design"],
+    "about": "Builds websites and landing pages for small businesses and NGOs. Three years with WordPress and plain HTML.",
+    "work": [{"label": "Portfolio", "url": "https://example.com"}, {"label": "GitHub", "url": "https://github.com"}],
+    "lightning": "achan@getalby.com",
+    "contact": "https://wa.me/254700000000",
+    "location": "Kakuma 1"
+  },
+  {
+    "name": "Example: Nyakuoth Riek",
+    "role": "Translator and writer",
+    "skills": ["Translation", "Writing"],
+    "about": "English, Swahili, Nuer and Arabic. Translates documents, subtitles and training material.",
+    "work": [{"label": "Samples", "url": "https://example.com"}],
+    "lightning": "nyakuoth@walletofsatoshi.com",
+    "contact": "https://wa.me/254700000001",
+    "location": "Kakuma 3"
+  },
+  {
+    "name": "Example: Peter Lokwang",
+    "role": "Data entry and virtual assistant",
+    "skills": ["Data entry", "Virtual assistant"],
+    "about": "Spreadsheets, transcription, research and email support for clients in Kenya and abroad.",
+    "work": [],
+    "lightning": "",
+    "contact": "mailto:example@example.com",
+    "location": "Kalobeyei"
+  },
+  {
+    "name": "Example: Mariam Abdi",
+    "role": "Teacher",
+    "skills": ["Teaching", "Bitcoin education"],
+    "about": "Teaches the Bitcoin Basics class at the hub on Saturdays and runs the women's study group.",
+    "work": [],
+    "lightning": "mariam@blink.sv",
+    "contact": "https://wa.me/254700000002",
+    "location": "Kakuma 2"
+  }
+]

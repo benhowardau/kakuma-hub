@@ -1,0 +1,5 @@
+{
+  "_comment": "Moderation for community profiles that come from Nostr. Put an npub in blocked to hide everything that key publishes. Put an npub in verified to show a Hub verified badge on their community profile.",
+  "blocked": [],
+  "verified": []
+}

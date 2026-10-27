@@ -1,0 +1,110 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="styles.css"><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%23f7931a%22/><text x=%2250%22 y=%2268%22 font-size=%2256%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-weight=%22bold%22>₿</text></svg>"><title>My profile, Bitcoin Kakuma Hub</title><meta name="description" content="Create your profile at the Bitcoin Kakuma Hub. Your key, your profile, your lightning address, visible to clients everywhere."></head>
+<body><div class="wrap"><div class="top"><a class="brand" href="index.html"><span class="mark">₿</span>Bitcoin Kakuma Hub</a><nav class="main"><a href="learn.html">Learn</a><a href="course.html">Course</a><a href="members.html">Members</a><a href="market.html">Market</a><a href="profile.html">My profile</a></nav></div>
+<div class="hero"><h1>My profile</h1><p class="lede">Your profile lives on a key that only you hold, the same idea as your bitcoin. No password, no account with us. Clients find you in the <a href="members.html">directory</a> and in every Nostr app in the world.</p></div>
+<div id="app"><p class="small">Loading…</p></div>
+<section><h2>How this works</h2>
+<p>When you press Create, your phone makes a key and keeps it. Everything you publish is signed by that key, so nobody can change your profile but you. The key has a backup phrase that starts with <code>nsec</code>. Write it down on paper like your bitcoin words: if you lose the phone and the paper, you start again with a new profile.</p>
+<p>Your profile is published to public Nostr relays, which are free servers anyone can read. That is why the hub never needs to run a server, and why your profile also appears in apps like Primal, Damus and Amethyst, where bitcoiners can find you and zap you.</p></section>
+<footer><div class="fl"><a href="index.html">Home</a><a href="learn.html">Learn</a><a href="course.html">Course</a><a href="members.html">Members</a><a href="market.html">Market</a><a href="profile.html">My profile</a></div><p style="margin-top:14px">Bitcoin Kakuma Hub, Clinic 7, Kakuma Refugee Camp, Turkana County, Kenya. Part of the Bitcoin Nairobi community, with <a href="https://x.com/BitDevsNBO">BitDevs Nairobi</a>.</p></footer></div>
+<script type="module">
+import * as N from './nostr.js';
+const app = document.getElementById('app');
+const esc = (s) => String(s || '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const TAG = new URLSearchParams(location.search).get('tag') || N.TAG;
+let sk = null; try { sk = N.loadKey(); } catch (e) {}
+let blocked = []; try { const h = await (await fetch('data/hub.json', { cache: 'no-store' })).json(); blocked = h.blocked || []; } catch (e) {}
+
+function contact(v) { v = (v || '').trim(); if (!v) return ''; if (v.indexOf('@') > 0 && v.indexOf('http') !== 0) return 'mailto:' + v; if (/^\+?\d[\d\s]{6,}$/.test(v)) return 'https://wa.me/' + v.replace(/\D/g, ''); return v; }
+function contactField(url) { url = url || ''; if (url.startsWith('https://wa.me/')) return url.slice(14); if (url.startsWith('mailto:')) return url.slice(7); return url; }
+
+function landing() {
+  app.innerHTML = `
+    <div class="lesson">
+      <h3>New here?</h3>
+      <p>Press the button. Your phone makes your key and you fill in your profile.</p>
+      <p><button class="btn" id="create">Create my profile</button></p>
+    </div>
+    <div class="lesson">
+      <h3>Already have a key?</h3>
+      <p>Paste your <code>nsec</code> backup phrase to log in on this phone.</p>
+      <form id="login"><input class="search" id="nsec" placeholder="nsec1…" autocomplete="off"><button class="btn" type="submit">Log in</button><p id="loginerr" class="bad"></p></form>
+    </div>`;
+  document.getElementById('create').addEventListener('click', () => { sk = N.createKey(); editor(null, true); });
+  document.getElementById('login').addEventListener('submit', (e) => { e.preventDefault(); try { sk = N.importKey(document.getElementById('nsec').value); editor(null, false); } catch (err) { document.getElementById('loginerr').textContent = 'That does not look like an nsec key. It starts with nsec1 and has 63 characters.'; } });
+}
+
+async function editor(existing, fresh) {
+  const npub = N.npubOf(sk);
+  if (blocked.includes(npub)) { app.innerHTML = '<div class="lesson"><h3>This key is blocked by the hub</h3><p>Talk to the hub team at a Saturday class.</p></div>'; return; }
+  app.innerHTML = '<p class="small">Looking for your profile…</p>';
+  let mine = null, products = [];
+  if (!existing) {
+    const pk = N.pubkeyOf(sk);
+    const [m, p] = await Promise.all([N.fetchListings('member', { tag: TAG, authors: [pk], maxWait: 4000 }), N.fetchListings('product', { tag: TAG, authors: [pk], maxWait: 4000 })]);
+    mine = m[0] ? m[0].data : null; products = p;
+  } else { mine = existing; }
+  const d = mine || { name: '', role: '', skills: [], about: '', work: [], lightning: '', contact: '', location: '' };
+  app.innerHTML = `
+    ${fresh ? '<div class="notice"><b>Your key is made.</b> Fill in your profile, then back up your key below.</div>' : ''}
+    <div class="lesson">
+      <h3>${mine ? 'Edit your profile' : 'Your profile'}</h3>
+      <form id="pf">
+        <label class="small">Your name<input class="search" name="name" required maxlength="60" value="${esc(d.name)}"></label>
+        <label class="small">What you do, in a few words (for example: Web developer)<input class="search" name="role" required maxlength="60" value="${esc(d.role)}"></label>
+        <label class="small">Skills, separated by commas (for example: Web development, Design)<input class="search" name="skills" required maxlength="200" value="${esc((d.skills || []).join(', '))}"></label>
+        <label class="small">Two sentences about your work<textarea class="search" name="about" rows="3" required maxlength="400">${esc(d.about)}</textarea></label>
+        <label class="small">Where you live (for example: Kakuma 1, Kalobeyei)<input class="search" name="location" maxlength="60" value="${esc(d.location)}"></label>
+        <label class="small">Link to your work, optional<input class="search" name="work1" placeholder="https://" maxlength="200" value="${esc(d.work && d.work[0] ? d.work[0].url : '')}"></label>
+        <label class="small">Second link, optional<input class="search" name="work2" placeholder="https://" maxlength="200" value="${esc(d.work && d.work[1] ? d.work[1].url : '')}"></label>
+        <label class="small">Your lightning address, so clients can pay you (for example: name@walletofsatoshi.com)<input class="search" name="lightning" maxlength="100" value="${esc(d.lightning)}"></label>
+        <label class="small">WhatsApp number with country code, or an email<input class="search" name="contact" maxlength="100" value="${esc(contactField(d.contact))}"></label>
+        <p><button class="btn" type="submit" id="save">${mine ? 'Save changes' : 'Publish my profile'}</button> <span id="msg"></span></p>
+      </form>
+    </div>
+    <div class="lesson">
+      <h3>Things I make, for the market</h3>
+      <div id="plist">${products.map((p) => `<p><b>${esc(p.data.name)}</b>, ${Number(p.data.price_sats).toLocaleString('en-US')} sats <button type="button" class="chip" data-remove="${esc(p.d)}">remove</button></p>`).join('') || '<p class="small">Nothing yet.</p>'}</div>
+      <form id="prod">
+        <label class="small">Name of the product (for example: Beaded necklace)<input class="search" name="pname" required maxlength="80"></label>
+        <label class="small">Tradition or origin (for example: South Sudanese beadwork)<input class="search" name="origin" required maxlength="80"></label>
+        <label class="small">Price in sats<input class="search" name="price" type="number" min="1" step="1" required></label>
+        <label class="small">Two sentences: what it is, how long it takes, how it ships<textarea class="search" name="pabout" rows="3" required maxlength="400"></textarea></label>
+        <label class="small">Photo link, optional (a public image URL)<input class="search" name="photo" placeholder="https://" maxlength="300"></label>
+        <p><button class="btn ghost" type="submit">Add to the market</button> <span id="pmsg"></span></p>
+      </form>
+    </div>
+    <div class="lesson">
+      <h3>Your key</h3>
+      <p class="small">Public id (safe to share): <code>${npub}</code></p>
+      <p>Back up your key now. Write the phrase on paper and keep it with your bitcoin words. Never send it to anyone and never type it into a website that is not this one.</p>
+      <p><button class="btn ghost" type="button" id="reveal">Show my backup phrase</button></p>
+      <p id="nsecbox" hidden><code id="nsecv"></code> <button type="button" class="chip" id="copynsec">copy</button></p>
+      <p class="small">See yourself in the wider world: <a href="https://primal.net/p/${npub}" target="_blank" rel="noopener">your profile on Primal</a>.</p>
+      <p><button type="button" class="chip" id="logout">Log out on this phone</button> <button type="button" class="chip" id="remove">Remove my profile from the directory</button></p>
+    </div>`;
+  const pf = document.getElementById('pf');
+  pf.addEventListener('submit', async (e) => {
+    e.preventDefault(); const f = new FormData(pf); const msg = document.getElementById('msg'); const btn = document.getElementById('save');
+    const work = []; [f.get('work1'), f.get('work2')].forEach((u) => { if (u && u.trim()) work.push({ label: /github/i.test(u) ? 'GitHub' : /linkedin/i.test(u) ? 'LinkedIn' : 'Website', url: u.trim() }); });
+    const data = { name: f.get('name').trim(), role: f.get('role').trim(), skills: f.get('skills').split(',').map((s) => s.trim()).filter(Boolean), about: f.get('about').trim(), work, lightning: (f.get('lightning') || '').trim(), contact: contact(f.get('contact')), location: (f.get('location') || '').trim() };
+    btn.disabled = true; msg.textContent = 'Publishing…';
+    try { const r = await N.publishMember(sk, data, TAG); msg.innerHTML = `<span class="ok">Published to ${r.relays} relays. You are in the <a href="members.html">directory</a>.</span>`; }
+    catch (err) { msg.innerHTML = '<span class="bad">' + esc(err.message) + '</span>'; }
+    btn.disabled = false;
+  });
+  const prod = document.getElementById('prod');
+  prod.addEventListener('submit', async (e) => {
+    e.preventDefault(); const f = new FormData(prod); const pm = document.getElementById('pmsg');
+    const data = { name: f.get('pname').trim(), maker: (pf.name.value || d.name).trim(), origin: f.get('origin').trim(), price_sats: Number(f.get('price')), about: f.get('pabout').trim(), photo: (f.get('photo') || '').trim(), lightning: (pf.lightning.value || '').trim(), contact: contact(pf.contact.value) };
+    pm.textContent = 'Publishing…';
+    try { const r = await N.publishProduct(sk, data, TAG); pm.innerHTML = `<span class="ok">On the <a href="market.html">market</a> (${r.relays} relays).</span>`; prod.reset(); }
+    catch (err) { pm.innerHTML = '<span class="bad">' + esc(err.message) + '</span>'; }
+  });
+  document.getElementById('plist').addEventListener('click', async (e) => { const b = e.target.closest('[data-remove]'); if (!b) return; b.textContent = 'removing…'; try { await N.removeProduct(sk, b.dataset.remove, TAG); b.parentElement.remove(); } catch (err) { b.textContent = 'try again'; } });
+  document.getElementById('reveal').addEventListener('click', () => { document.getElementById('nsecv').textContent = N.nsecOf(sk); document.getElementById('nsecbox').hidden = false; });
+  document.getElementById('copynsec').addEventListener('click', (e) => { navigator.clipboard && navigator.clipboard.writeText(N.nsecOf(sk)); e.target.textContent = 'copied'; });
+  document.getElementById('logout').addEventListener('click', () => { if (confirm('Log out on this phone? You will need your nsec backup phrase to log in again.')) { N.forgetKey(); sk = null; landing(); } });
+  document.getElementById('remove').addEventListener('click', async (e) => { if (!confirm('Remove your profile from the directory? You can publish it again later.')) return; e.target.textContent = 'removing…'; try { await N.removeMember(sk, TAG); e.target.textContent = 'removed'; } catch (err) { e.target.textContent = 'try again'; } });
+}
+if (sk) editor(null, false); else landing();
+</script></body></html>
