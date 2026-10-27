@@ -194,3 +194,7 @@ details .sub { font-size:15px; color:var(--muted); font-weight:400; margin-left:
 
 .signed { justify-content:space-between; margin:4px 0 10px; }
 .signed b { color:var(--fg); }
+
+/* fields inside a card sit on the page colour so they read as fields */
+.lesson .search, .lesson textarea.search { background:var(--bg); box-shadow:inset 0 0 0 1px var(--hair); }
+.lesson .search:focus { box-shadow:0 0 0 2px var(--fg); }
