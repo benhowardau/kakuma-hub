@@ -224,3 +224,8 @@ summary .sub { margin-left:auto; margin-right:14px; text-align:right; }
 @media (prefers-reduced-motion: reduce) { .confetti { display:none; } .btn.pop { animation:none; } }
 
 @media (max-width:480px) { nav.main { font-size:13px; gap:2px 11px; } nav.main a { padding:6px 0; } .brand { font-size:15px; } }
+
+/* photos in the flow of a page */
+.photo { margin:26px 0 0; }
+.photo img { display:block; width:100%; height:auto; border-radius:var(--r); background:var(--tone); }
+.photo figcaption { margin-top:10px; }
